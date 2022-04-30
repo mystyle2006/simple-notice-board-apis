@@ -7,6 +7,14 @@ import { Post } from '../entities/post.entity';
 
 @Injectable()
 export class PostFinder extends CommonImplementation(Post) {
+  async findById(id: number): Promise<Post> {
+    return this.repository.findOne({
+      where: {
+        id,
+        deleted: false,
+      },
+    });
+  }
   async findAll({ limit, page }: GetPaginatedPostDto): Promise<ReturnPostDto> {
     const [data, totalCount] = await this.repository.findAndCount({
       where: {

@@ -6,6 +6,7 @@ import { DeletePostDto } from './dto/delete-post.dto';
 import { GetPaginatedPostDto } from './dto/get-paginated-post.dto';
 import { ReturnPostDto } from './dto/return-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.entity';
 import { PostCreator } from './implementations/post-creator';
 import { PostDeleter } from './implementations/post-deleter';
 import { PostFinder } from './implementations/post-finder';
@@ -28,8 +29,8 @@ export class PostService {
     return this.postFinder.findAll(input);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number): Promise<Post> {
+    return this.postFinder.findById(id);
   }
 
   async update(id: number, input: UpdatePostDto): Promise<void> {
