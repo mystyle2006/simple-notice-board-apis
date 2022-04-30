@@ -13,6 +13,9 @@ export class Post extends CommonEntity {
   @Column()
   writer: string;
 
+  @Column()
+  content: string;
+
   @Column({ select: false })
   password: string;
 }
