@@ -11,4 +11,4 @@ services:
       - MYSQL_DATABASE=notice-board
     ports:
       - 3316:3306
-    command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --collation-server=utf8mb4_general_ci --explicit_defaults_for_timestamp --sql_mode=IGNORE_SPACE --max_connections=10000 --wait_timeout=60000
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --collation-server=utf8mb4_general_ci --explicit_defaults_for_timestamp --sql_mode=IGNORE_SPACE --max_connections=10000 --wait_timeout=60000
