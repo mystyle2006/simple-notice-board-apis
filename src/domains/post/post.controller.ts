@@ -6,10 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 
 import { CreatePostDto } from './dto/create-post.dto';
+import { DeletePostDto } from './dto/delete-post.dto';
 import { GetPaginatedPostDto } from './dto/get-paginated-post.dto';
 import { ReturnPostDto } from './dto/return-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -44,8 +46,12 @@ export class PostController {
     return true;
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+  @Put(':id')
+  async remove(
+    @Param('id') id: string,
+    @Body() input: DeletePostDto,
+  ): Promise<boolean> {
+    await this.postService.remove(+id, input);
+    return true;
   }
 }
