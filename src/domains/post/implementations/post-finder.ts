@@ -9,6 +9,9 @@ import { Post } from '../entities/post.entity';
 export class PostFinder extends CommonImplementation(Post) {
   async findAll({ limit, page }: GetPaginatedPostDto): Promise<ReturnPostDto> {
     const [data, totalCount] = await this.repository.findAndCount({
+      where: {
+        deleted: false,
+      },
       skip: (page - 1) * limit,
       take: limit,
       order: { createdAt: 'DESC' },
