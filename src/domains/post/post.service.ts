@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
 
 import { CreatePostDto } from './dto/create-post.dto';
 import { DeletePostDto } from './dto/delete-post.dto';
