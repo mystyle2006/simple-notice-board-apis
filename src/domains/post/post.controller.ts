@@ -11,6 +11,7 @@ import {
 
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetPaginatedPostDto } from './dto/get-paginated-post.dto';
+import { ReturnPostDto } from './dto/return-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
@@ -19,12 +20,13 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto): Promise<boolean> {
+    await this.postService.create(createPostDto);
+    return true;
   }
 
   @Get()
-  findAll(@Query() input: GetPaginatedPostDto) {
+  async findAll(@Query() input: GetPaginatedPostDto): Promise<ReturnPostDto> {
     return this.postService.findAll(input);
   }
 

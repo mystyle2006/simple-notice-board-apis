@@ -10,15 +10,11 @@ export interface ICommonFinder<T extends CommonEntity> {
 
 type Constructor<I> = new (...args: any[]) => I; // Main Point
 
-export function CommonFinder<T extends CommonEntity>(
+export function CommonImplementation<T extends CommonEntity>(
   entity: Constructor<T>,
 ): Type<ICommonFinder<T>> {
   class FinderServiceHost implements ICommonFinder<T> {
     @InjectRepository(entity) public readonly repository: Repository<T>;
-
-    private get primaryColumnName(): string {
-      return this.repository.metadata.primaryColumns[0]?.propertyName;
-    }
   }
 
   return FinderServiceHost;

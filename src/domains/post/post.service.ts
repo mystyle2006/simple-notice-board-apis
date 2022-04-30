@@ -1,19 +1,24 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetPaginatedPostDto } from './dto/get-paginated-post.dto';
+import { ReturnPostDto } from './dto/return-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { PostCreator } from './implementations/post-creator';
 import { PostFinder } from './implementations/post-finder';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly postFinder: PostFinder) {}
+  constructor(
+    private readonly postFinder: PostFinder,
+    private readonly postCreator: PostCreator,
+  ) {}
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  async create(input: CreatePostDto): Promise<void> {
+    await this.postCreator.create(input);
   }
 
-  findAll(input: GetPaginatedPostDto) {
+  async findAll(input: GetPaginatedPostDto): Promise<ReturnPostDto> {
     return this.postFinder.findAll(input);
   }
 
