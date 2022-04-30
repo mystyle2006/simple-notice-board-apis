@@ -20,8 +20,8 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  async create(@Body() createPostDto: CreatePostDto): Promise<boolean> {
-    await this.postService.create(createPostDto);
+  async create(@Body() input: CreatePostDto): Promise<boolean> {
+    await this.postService.create(input);
     return true;
   }
 
@@ -36,8 +36,12 @@ export class PostController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
+  async update(
+    @Param('id') id: string,
+    @Body() input: UpdatePostDto,
+  ): Promise<boolean> {
+    await this.postService.update(+id, input);
+    return true;
   }
 
   @Delete(':id')

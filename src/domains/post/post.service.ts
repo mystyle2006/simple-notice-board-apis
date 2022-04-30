@@ -6,12 +6,14 @@ import { ReturnPostDto } from './dto/return-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostCreator } from './implementations/post-creator';
 import { PostFinder } from './implementations/post-finder';
+import { PostUpdater } from './implementations/post-updater';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly postFinder: PostFinder,
     private readonly postCreator: PostCreator,
+    private readonly postUpdater: PostUpdater,
   ) {}
 
   async create(input: CreatePostDto): Promise<void> {
@@ -26,8 +28,8 @@ export class PostService {
     return `This action returns a #${id} post`;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, input: UpdatePostDto): Promise<void> {
+    await this.postUpdater.update(id, input);
   }
 
   remove(id: number) {
