@@ -27,7 +27,9 @@ export class PostController {
   }
 
   @Get()
-  async findAll(@Query() input: GetPaginatedPostDto): Promise<ReturnPaginatedPostDto> {
+  async findAll(
+    @Query() input: GetPaginatedPostDto,
+  ): Promise<ReturnPaginatedPostDto> {
     return this.postService.findAll(input);
   }
 

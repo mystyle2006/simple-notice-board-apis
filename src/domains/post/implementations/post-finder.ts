@@ -15,7 +15,10 @@ export class PostFinder extends CommonImplementation(Post) {
       },
     });
   }
-  async findAll({ limit, page }: GetPaginatedPostDto): Promise<ReturnPaginatedPostDto> {
+  async findAll({
+    limit,
+    page,
+  }: GetPaginatedPostDto): Promise<ReturnPaginatedPostDto> {
     const [data, totalCount] = await this.repository.findAndCount({
       where: {
         deleted: false,
