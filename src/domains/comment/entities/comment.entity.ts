@@ -1,3 +1,4 @@
+import { IsNotEmpty } from 'class-validator';
 import {
   Column,
   Entity,
@@ -21,9 +22,11 @@ export class Comment extends CommonEntity {
   content: string;
 
   @Column()
+  @IsNotEmpty()
   postId: string;
 
   @Column()
+  @IsNotEmpty()
   writer: string;
 
   @ManyToOne(() => Comment, (parent) => parent.comments)
