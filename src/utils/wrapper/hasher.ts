@@ -8,6 +8,10 @@ class Hasher {
   }
 
   async isMatch(str: string, hashedStr: string): Promise<boolean> {
+    if (!str) {
+      return false;
+    }
+
     return bcrypt.compare(str, hashedStr);
   }
 }
