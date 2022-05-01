@@ -1,3 +1,4 @@
+import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 import { CommonEntity } from '../../../utils/common.entity';
@@ -8,14 +9,17 @@ export class Post extends CommonEntity {
   id: number;
 
   @Column()
+  @IsNotEmpty()
   title: string;
 
   @Column()
+  @IsNotEmpty()
   writer: string;
 
   @Column()
   content: string;
 
   @Column({ select: false })
+  @IsNotEmpty()
   password: string;
 }

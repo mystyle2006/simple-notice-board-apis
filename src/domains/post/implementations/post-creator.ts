@@ -1,4 +1,4 @@
-import {Injectable, InternalServerErrorException} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 import { CommonImplementation } from '../../../utils/common-implementation';
 import Hasher from '../../../utils/wrapper/hasher';
