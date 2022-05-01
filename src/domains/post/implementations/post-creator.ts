@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, InternalServerErrorException} from '@nestjs/common';
 
 import { CommonImplementation } from '../../../utils/common-implementation';
 import Hasher from '../../../utils/wrapper/hasher';
@@ -8,10 +8,14 @@ import { Post } from '../entities/post.entity';
 @Injectable()
 export class PostCreator extends CommonImplementation(Post) {
   async create(input: CreatePostDto): Promise<void> {
-    const hashedPassword = await Hasher.hash(input.password);
-    await this.repository.insert({
-      ...input,
-      password: hashedPassword,
-    });
+    try {
+      const hashedPassword = await Hasher.hash(input.password);
+      await this.repository.insert({
+        ...input,
+        password: hashedPassword,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

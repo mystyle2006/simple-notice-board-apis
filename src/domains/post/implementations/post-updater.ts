@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 import { CommonImplementation } from '../../../utils/common-implementation';
 import Hasher from '../../../utils/wrapper/hasher';
@@ -25,6 +29,10 @@ export class PostUpdater extends CommonImplementation(Post) {
       );
     }
 
-    await this.repository.update(id, leftover);
+    try {
+      await this.repository.update(id, leftover);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

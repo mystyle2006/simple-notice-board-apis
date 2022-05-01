@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable, InternalServerErrorException} from '@nestjs/common';
 
 import { CommonImplementation } from '../../../utils/common-implementation';
 import Hasher from '../../../utils/wrapper/hasher';
@@ -22,9 +22,13 @@ export class PostDeleter extends CommonImplementation(Post) {
       );
     }
 
-    await this.repository.update(id, {
-      deleted: true,
-      deletedAt: new Date(),
-    });
+    try {
+      await this.repository.update(id, {
+        deleted: true,
+        deletedAt: new Date(),
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }
