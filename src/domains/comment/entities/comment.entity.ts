@@ -27,7 +27,7 @@ export class Comment extends CommonEntity {
   writer: string;
 
   @ManyToOne(() => Comment, (parent) => parent.comments)
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'parent_id' })
   parent: Comment;
 
   @OneToMany(() => Comment, (comments) => comments.parent)

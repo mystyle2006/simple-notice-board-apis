@@ -12,13 +12,15 @@ export class CommentFinder extends CommonImplementation(Comment) {
     { limit, page }: GetPaginatedCommentDto,
   ): Promise<ReturnPaginatedCommentDto> {
     const [data, totalCount] = await this.repository.findAndCount({
+      relations: ['comments'],
       where: {
         postId,
+        parentId: null,
         deleted: false,
       },
       skip: (page - 1) * limit,
       take: limit,
-      order: { createdAt: 'DESC' },
+      order: { id: 'ASC' },
     });
 
     return {
