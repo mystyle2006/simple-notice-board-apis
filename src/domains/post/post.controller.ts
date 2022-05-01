@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
 
 import { CreatePostDto } from './dto/create-post.dto';
 import { DeletePostDto } from './dto/delete-post.dto';
@@ -21,12 +22,34 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
+  @ApiBody({
+    schema: {
+      example: {
+        writer: '',
+        content: '',
+        title: '',
+        password: '',
+      },
+    },
+  })
   async create(@Body() input: CreatePostDto): Promise<boolean> {
     await this.postService.create(input);
     return true;
   }
 
   @Get()
+  @ApiQuery({
+    name: 'limit',
+    required: true,
+  })
+  @ApiQuery({
+    name: 'page',
+    required: true,
+  })
+  @ApiQuery({
+    name: 'keyword',
+    required: false,
+  })
   async findAll(
     @Query() input: GetPaginatedPostDto,
   ): Promise<ReturnPaginatedPostDto> {
@@ -39,6 +62,16 @@ export class PostController {
   }
 
   @Patch(':id')
+  @ApiBody({
+    schema: {
+      example: {
+        writer: '',
+        content: '',
+        title: '',
+        password: '',
+      },
+    },
+  })
   async update(
     @Param('id') id: string,
     @Body() input: UpdatePostDto,
@@ -47,7 +80,14 @@ export class PostController {
     return true;
   }
 
-  @Put(':id')
+  @Put('delete/:id')
+  @ApiBody({
+    schema: {
+      example: {
+        password: '',
+      },
+    },
+  })
   async remove(
     @Param('id') id: string,
     @Body() input: DeletePostDto,
