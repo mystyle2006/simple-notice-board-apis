@@ -28,4 +28,8 @@ $ yarn service:down
 - port: 3000
 - docs: /api
 
+## 키워드 알림 서비스 로직
+![](./images/readme-image-01.png)
 
+위 이미지처럼 댓글 또는 게시글 작성 시 Queue에 추가하고
+각 consumer를 통해 알림을 처리하도록 구현
