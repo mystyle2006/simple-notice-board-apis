@@ -1,8 +1,31 @@
 version: '3.1'
 services:
-  redis:
+  nestjs:
+    container_name: notice-board-nestjs
+    image: notice-board-nestjs:latest
+    build:
+      context: ../
+      dockerfile: ../Dockerfile
+    networks:
+      - local-network
+    ports:
+      - 3000:3000
+    depends_on:
+      - notice-board-db
+      - notice-board-redis
+    environment:
+      - RDS_HOSTNAME=notice-board-db
+      - RDS_PORT=3306
+      - RDS_DB_NAME=notice-board
+      - RDS_USERNAME=root
+      - RDS_PASSWORD=1234qwer
+      - REDIS_PORT=6379
+      - REDIS_HOSTNAME=notice-board-redis
+  notice-board-redis:
     image: redis:alpine
     command: redis-server --port 6379
+    networks:
+      - local-network
     container_name: redis_boot
     hostname: redis_boot
     labels:
@@ -13,6 +36,8 @@ services:
   notice-board-db:
     container_name: notice-board-db-local
     image: mysql:8.0.23
+    networks:
+      - local-network
     volumes:
       - ./mysql/:/var/lib/mysql/
     environment:
@@ -22,3 +47,5 @@ services:
     ports:
       - 3316:3306
     command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --collation-server=utf8mb4_general_ci --explicit_defaults_for_timestamp --sql_mode=IGNORE_SPACE --max_connections=10000 --wait_timeout=60000
+networks:
+  local-network:

@@ -11,7 +11,9 @@ import { DatabaseModule } from './modules/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: process.env.NODE_ENV === 'local' ? '.env' : '',
+    }),
     DatabaseModule,
     PostModule,
     CommentModule,
