@@ -12,7 +12,7 @@ import {
 import { CreatePostDto } from './dto/create-post.dto';
 import { DeletePostDto } from './dto/delete-post.dto';
 import { GetPaginatedPostDto } from './dto/get-paginated-post.dto';
-import { ReturnPostDto } from './dto/return-post.dto';
+import { ReturnPaginatedPostDto } from './dto/return-paginated-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
@@ -27,7 +27,7 @@ export class PostController {
   }
 
   @Get()
-  async findAll(@Query() input: GetPaginatedPostDto): Promise<ReturnPostDto> {
+  async findAll(@Query() input: GetPaginatedPostDto): Promise<ReturnPaginatedPostDto> {
     return this.postService.findAll(input);
   }
 

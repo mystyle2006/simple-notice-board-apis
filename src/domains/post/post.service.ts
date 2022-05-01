@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { DeletePostDto } from './dto/delete-post.dto';
 import { GetPaginatedPostDto } from './dto/get-paginated-post.dto';
-import { ReturnPostDto } from './dto/return-post.dto';
+import { ReturnPaginatedPostDto } from './dto/return-paginated-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 import { PostCreator } from './implementations/post-creator';
@@ -24,7 +24,7 @@ export class PostService {
     await this.postCreator.create(input);
   }
 
-  async findAll(input: GetPaginatedPostDto): Promise<ReturnPostDto> {
+  async findAll(input: GetPaginatedPostDto): Promise<ReturnPaginatedPostDto> {
     return this.postFinder.findAll(input);
   }
 

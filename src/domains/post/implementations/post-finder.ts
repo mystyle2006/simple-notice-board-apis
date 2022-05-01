@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { CommonImplementation } from '../../../utils/common-implementation';
 import { GetPaginatedPostDto } from '../dto/get-paginated-post.dto';
-import { ReturnPostDto } from '../dto/return-post.dto';
+import { ReturnPaginatedPostDto } from '../dto/return-paginated-post.dto';
 import { Post } from '../entities/post.entity';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class PostFinder extends CommonImplementation(Post) {
       },
     });
   }
-  async findAll({ limit, page }: GetPaginatedPostDto): Promise<ReturnPostDto> {
+  async findAll({ limit, page }: GetPaginatedPostDto): Promise<ReturnPaginatedPostDto> {
     const [data, totalCount] = await this.repository.findAndCount({
       where: {
         deleted: false,
