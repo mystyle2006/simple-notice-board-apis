@@ -4,6 +4,7 @@ import { Job } from 'bull';
 import { queueDictioanry } from '../../../dictionary/queue.dictioanry';
 import { CommonImplementation } from '../../../utils/common-implementation';
 import { KeywordAlarm } from '../../../utils/entity/keyword-alarm.entity';
+import { sendAlarmLogic } from '../../../utils/logic/send-alarm.logic';
 import { PostFinder } from '../implementations/post-finder';
 
 @Processor(queueDictioanry.POST_KEYWORD_ALARM)
@@ -23,17 +24,13 @@ export class PostKeywordAlarmConsumer extends CommonImplementation(
       post.writer,
     );
 
-    targets.forEach(({ writer, keywords }) => {
-      const keywordList = keywords.split(',');
-      const isMatched = keywordList.find((keyword) =>
-        `${post.title}${post.content}`.includes(keyword),
-      );
-
-      if (isMatched) {
-        console.info(
-          `${writer}님에게 ${post.id}번 게시물에 대한 알림을 전송합니다.`,
-        );
-      }
-    });
+    targets.forEach(({ writer, keywords }) =>
+      sendAlarmLogic({
+        writer,
+        keywords,
+        compareString: `${post.title}${post.content}`,
+        message: `${writer}님에게 ${post.id}번 게시물에 대한 알림을 전송합니다.`,
+      }),
+    );
   }
 }
