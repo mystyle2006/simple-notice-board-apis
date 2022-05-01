@@ -7,6 +7,10 @@ import { Comment } from '../entities/comment.entity';
 
 @Injectable()
 export class CommentFinder extends CommonImplementation(Comment) {
+  async findById(id: number): Promise<Comment> {
+    return this.repository.findOne(id);
+  }
+
   async findAll(
     postId: string,
     { limit, page }: GetPaginatedCommentDto,
