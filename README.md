@@ -5,6 +5,7 @@
 - redis
 - liquibase
 - docker
+- swagger
 
 ## Installation
 1. 도커 이미지 실행
