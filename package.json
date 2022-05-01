@@ -10,6 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "docker:up": "docker build -t notice-board-nestjs .",
     "service:up": "docker-compose -f docker/docker-compose.yml up -d",
     "service:down": "docker-compose -f docker/docker-compose.yml down",
     "start:dev": "NODE_ENV=local nest start --watch",
