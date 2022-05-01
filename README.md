@@ -26,5 +26,6 @@ $ yarn service:down
 ## Description
 - host: localhost
 - port: 3000
+- docs: /api
 
 
