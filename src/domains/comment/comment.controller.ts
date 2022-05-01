@@ -19,8 +19,9 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentService.create(createCommentDto);
+  async create(@Body() input: CreateCommentDto): Promise<boolean> {
+    await this.commentService.create(input);
+    return true;
   }
 
   @Get(':postId')
